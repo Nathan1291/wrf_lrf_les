@@ -15,19 +15,19 @@ fi
 
 dir=$1
 
-if [ ! -d WRFV3 ]; then
-    echo "This script should be run from the modified WRF code directory containing WRFV3."
+if [ ! -d WRF ]; then
+    echo "This script should be run from the modified WRF code directory containing WRF."
     exit
 fi
 
-if [ ! -d $dir/WRFV3 ]; then
-    echo "WRF directory must contain WRFV3 directory."
+if [ ! -d $dir/WRF ]; then
+    echo "WRF directory must contain WRF directory."
     exit
 fi
 
 echo "Installing modified files into directory: ${dir}"
 
-files=`find WRFV3 -type f`
+files=`find WRF -type f`
 
 for file in $files; do
     echo $file
