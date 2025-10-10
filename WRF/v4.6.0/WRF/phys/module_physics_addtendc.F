@@ -32,7 +32,6 @@ SUBROUTINE update_phy_ten(rph_tendf,rt_tendf,ru_tendf,rv_tendf,moist_tendf, &
                       rthforceten, rqvforceten,                             &
                       rthrelaxten, rqvrelaxten,                             &
                       rurelaxten, rvrelaxten,                               &
-                      RTHBLTEN,RTHCUTEN,RTHSHTEN,                           & 
                       ! End changed block.
                       RTHBLTEN,RTHCUTEN,RTHSHTEN,                           &
                       RUBLTEN,RUCUTEN,RUSHTEN,                              &
@@ -78,6 +77,14 @@ SUBROUTINE update_phy_ten(rph_tendf,rt_tendf,ru_tendf,rv_tendf,moist_tendf, &
 
    REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN  ) ::   &
                                                        RTHRATEN, &
+                                                       ! Changed T. Raupach 21.05.2020.
+                                                       rthforceten, &
+                                                       rqvforceten, &
+                                                       rthrelaxten, &
+                                                       rqvrelaxten, &
+                                                       rurelaxten,  &
+                                                       rvrelaxten,  &
+                                                       ! End changed block.
                                                        RTHBLTEN, &
                                                        RTHCUTEN, &
                                                        RTHSHTEN, &

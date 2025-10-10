@@ -910,6 +910,16 @@ CONTAINS
 !-------------------------------------------------
 ! End of Noah-mosaic 
 !-------------------------------------------------  
+   
+! IRRIGATION
+  INTEGER,OPTIONAL,INTENT(OUT), DIMENSION( ims:ime,jms:jme):: irr_rand_field 
+  INTEGER, OPTIONAL :: irr_ph,irr_freq 
+!-----------------------------------------------------------------
+
+! Climate GHG file read for radiation
+REAL(KIND=8) :: co2dum,n2odum,ch4dum,f11dum,f12dum
+CHARACTER(LEN=8) :: name
+!-----------------------------------------------------------------
 
    ! Changed T. Raupach.
    ! Initialize LRF tendencies to zero if not a restart. Note that even in a restart
@@ -929,18 +939,9 @@ CONTAINS
       ENDDO
    end if
    ! End changed block.
-   
+
 !-------------------------------------------------  
 
-! IRRIGATION
-  INTEGER,OPTIONAL,INTENT(OUT), DIMENSION( ims:ime,jms:jme):: irr_rand_field 
-  INTEGER, OPTIONAL :: irr_ph,irr_freq 
-!-----------------------------------------------------------------
-
-! Climate GHG file read for radiation
-REAL(KIND=8) :: co2dum,n2odum,ch4dum,f11dum,f12dum
-CHARACTER(LEN=8) :: name
-!-----------------------------------------------------------------
 
 #if ( EM_CORE == 1 )
 

@@ -5041,7 +5041,6 @@ END SUBROUTINE phy_prep
                                                            RTHBLTEN, &
                                                            RQVBLTEN, &
                                                            RQCBLTEN, &
-                                                           RQIBLTEN
 ! Changed T. Raupach 21.05.2020.                                                           
                                                            RQIBLTEN,    &
                                                            rthforceten, &

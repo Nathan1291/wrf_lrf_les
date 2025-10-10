@@ -28,7 +28,7 @@
                       ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,          &
                       shalwater_z0,water_depth,                     &
                       ! Changed T. Raupach 2020
-                      rho, ideal_evap_flag, surface_wind            &
+                      rho, ideal_evap_flag, surface_wind,           &
                       ! End changed block.
                       scm_force_flux,errmsg,errflg)
 !=================================================================================================================
@@ -64,7 +64,7 @@
     p3d,        &
     t3d,        &
     u3d,        &
-    v3d         &
+    v3d,        &
     ! Changed T. Raupach 2020.
     rho
     ! End changed block.
@@ -128,7 +128,7 @@
 
  ! Changed T. Raupach 2020.
  integer:: i,j,k
- real(kind=kind_phys),dimension(its:ite):: dz1d,u1d,v1d,qv1d,p1d,t1d, rho1d
+ real(kind=kind_phys),dimension(its:ite):: dz1d,u1d,v1d,qv1d,p1d,t1d,rho1d
  ! End changed block.
 
  real(kind=kind_phys),dimension(its:ite):: &
@@ -136,7 +136,7 @@
  
  ! Changed T. Raupach 2020.
  real(kind=kind_phys),dimension(its:ite,kts:kte):: &
-    dz_hv,u_hv,v_hv,qv_hv,p_hv,t_hv, rho_hv
+    dz_hv,u_hv,v_hv,qv_hv,p_hv,t_hv,rho_hv
  ! End changed block.
 
  real(kind=kind_phys),dimension(its:ite):: &
@@ -180,7 +180,7 @@
           qv_hv(i,k) = qv3d(i,k,j)
           p_hv(i,k)  = p3d(i,k,j)
           t_hv(i,k)  = t3d(i,k,j)
-          rho_hv(i,l)= rho(i,k,j)
+          rho_hv(i,k)= rho(i,k,j)
        enddo
 
        !inout arguments:
@@ -220,11 +220,14 @@
                                     rho2d=rho_hv,                                                  &
                                     ! End changed block.
                                     dz1d=dz1d,u1d=u1d,v1d=v1d,qv1d=qv1d,p1d=p1d,t1d=t1d,           &
+                                    ! Changed T. Raupach 2020.
+                                    rho1d=rho1d,                                                    &
+                                    ! End changed block.
                                     its=its,ite=ite,kts=kts,kte=kte,errmsg=errmsg,errflg=errflg)
 
     call sf_sfclayrev_run(ux=u1d,vx=v1d,t1d=t1d,qv1d=qv1d,p1d=p1d,dz8w1d=dz1d,                     &
                           ! Changed T. Raupach 2020.
-                          rho1d=rho1d, ideal_evap_flag=ideal_evap_flag, surface_wind=surface_wind   &
+                          rho1d=rho1d, ideal_evap_flag=ideal_evap_flag, surface_wind=surface_wind, &
                           ! End changed block.
                           cp=cp,g=g,rovcp=rovcp,r=r,xlv=xlv,psfcpa=psfc_hv,chs=chs_hv,             &
                           chs2=chs2_hv,cqs2=cqs2_hv,cpm=cpm_hv,pblh=pblh_hv,                       &
@@ -303,22 +306,26 @@
 !=================================================================================================================
 ! Changed T. Raupach 2020
  subroutine sf_sfclayrev_pre_run(dz2d,u2d,v2d,qv2d,p2d,t2d,rho2d,dz1d,u1d,v1d,qv1d,p1d, &
-                                 t1d,its,ite,kts,kte,errmsg,errflg)
+                                 t1d,rho1d,its,ite,kts,kte,errmsg,errflg)
 ! End changed block.
 !=================================================================================================================
 
 !--- input arguments:
  integer,intent(in):: its,ite,kts,kte
 
+! Changed T. Raupach 2020
  real(kind=kind_phys),intent(in),dimension(its:ite,kts:kte):: &
-    dz2d,u2d,v2d,qv2d,p2d,t2d
+    dz2d,u2d,v2d,qv2d,p2d,t2d,rho2d
+! End changed block.
 
 !--- output arguments:
  character(len=*),intent(out):: errmsg
  integer,intent(out):: errflg
 
+! Changed T. Raupach 2020
  real(kind=kind_phys),intent(out),dimension(its:ite):: &
-    dz1d,u1d,v1d,qv1d,p1d,t1d
+    dz1d,u1d,v1d,qv1d,p1d,t1d,rho1d
+! End changed block.
 
 !--- local variables:
  integer:: i

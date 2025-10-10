@@ -814,7 +814,6 @@ BENCH_START(update_phy_ten_tim)
                            grid%rthforceten, grid%rqvforceten,              &
                            grid%rthrelaxten, grid%rqvrelaxten,              &
                            grid%rurelaxten, grid%rvrelaxten,                &
-                           grid%rthblten,grid%rthcuten,grid%rthshten,       &
                            ! End changed block.
                            grid%rthblten,grid%rthcuten,grid%rthshten,       &
                            grid%rublten,grid%rucuten,grid%rushten,          &

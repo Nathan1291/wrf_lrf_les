@@ -547,7 +547,8 @@ BENCH_START(rad_driver_tim)
 #endif
                                                       )
 
-BENCH_END(rad_driver_tim)
+     BENCH_END(rad_driver_tim)
+endif
 
 ! Prescribe the radiative cooling profile as in Herman and Kuang (2013).
    if(config_flags%const_rad_cooling .eqv. .true.) then

@@ -79,6 +79,18 @@ SUBROUTINE solve_em ( grid , config_flags  &
    USE module_avgflx_em, ONLY : zero_avgflx, upd_avgflx
    USE module_cpl, ONLY : coupler_on, cpl_settime, cpl_store_input
 
+   ! Changed by T. Raupach to include light nudging code by Maxime Colin; other
+   ! light-nudging-related changes in this file related to nudging (including
+   ! print_info use) are also based on Maxime's nudging code, cleaned and
+   ! updated to use module_nudging.F. Further changes (inclusion of rthforceten
+   ! and rqvforceten and rurelaxten and rvrelaxten) are independent.
+   USE module_nudging, ONLY: apply_light_nudging
+
+   ! Also include module_LRF for modified versions of Yi-Ling Hwong's
+   ! code for relaxation of stratospheric T and q fields.
+   USE module_LRF, ONLY : read_tq_target_profiles, relax_stratospheric_t_qv
+   ! End changed block.
+
 #if (WRF_CMAQ == 1)
    use twoway_data_module
 #endif
@@ -157,6 +169,10 @@ SUBROUTINE solve_em ( grid , config_flags  &
    LOGICAL                        :: diag_flag
    INTEGER                        :: ke_diag ! tells reflectivity calculation whether to do full depth or only k=1
    LOGICAL                        :: restart_flag !  tells if it is a restart timestep to write restart files. 
+
+   ! Added by Tim Raupach; variable to determine whether debugging information
+   ! should be printed.
+   LOGICAL :: print_info = .TRUE.
    
 #if (WRF_CHEM == 1)
    ! Index cross-referencing array for tendency accumulation

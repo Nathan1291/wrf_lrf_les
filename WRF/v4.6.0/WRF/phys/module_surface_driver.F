@@ -2119,10 +2119,10 @@ CONTAINS
                  ims,ime, jms,jme, kms,kme,                          &
                  i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte,    &
                  ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,                &
-                 ! Changed T. Raupach 2020.
-                 rho, ideal_evap_flag, surface_wind                  &
-                 ! End changed block.
                  shalwater_z0,water_depth,                           & 
+                 ! Changed T. Raupach 2020.
+                 rho, ideal_evap_flag, surface_wind,                 &
+                 ! End changed block.
                  scm_force_flux,sf_surface_physics,errmsg,errflg     )
          ELSE
          CALL SFCLAYREV(u_phytmp,v_phytmp,t_phy,qv_curr,&
@@ -2137,10 +2137,10 @@ CONTAINS
                ims,ime, jms,jme, kms,kme,                          &
                i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte,    &
                ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,                &
-               ! Changed T. Raupach 2020.
-               rho, ideal_evap_flag, surface_wind                  &
-               ! End changed block.
                shalwater_z0,water_depth,                           & 
+               ! Changed T. Raupach 2020.
+               rho, ideal_evap_flag, surface_wind,                 &
+               ! End changed block.
                scm_force_flux,errmsg,errflg                        ) 
 #if ( EM_CORE==1)
            DO j = j_start(ij),j_end(ij)
@@ -5851,10 +5851,10 @@ CONTAINS
                      ims,ime, jms,jme, kms,kme,                    &
                      its,ite, jts,jte, kts,kte,                    &
                      ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,          &
-                     ! Changed T. Raupach 2020.
-                     rho, ideal_evap_flag, surface_wind            &
-                     ! End changed block.
                      shalwater_z0,water_depth,                     & 
+                     ! Changed T. Raupach 2020.
+                     rho, ideal_evap_flag, surface_wind,           &
+                     ! End changed block.
                      scm_force_flux,sf_surface_physics,errmsg,errflg)
 
      USE module_sf_sfclayrev
@@ -6123,10 +6123,10 @@ CONTAINS
                  ims,ime, jms,jme, kms,kme,                    &
                  its,ite, jts,jte, kts,kte,                    &
                  ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,          &
-                 ! Changed T. Raupach 2020.
-                 rho, ideal_evap_flag, surface_wind            &
-                 ! End changed block.
                  shalwater_z0,water_depth,                     & 
+                 ! Changed T. Raupach 2020.
+                 rho, ideal_evap_flag, surface_wind,           &
+                 ! End changed block.
                  scm_force_flux,errmsg,errflg                  )
 !
 !Restore land-point values calculated by SSiB (fds 12/2010)
@@ -6220,10 +6220,10 @@ CONTAINS
                  ims,ime, jms,jme, kms,kme,                    &
                  its,ite, jts,jte, kts,kte,                    & ! 0
                  ustm_sea,ck_sea,cka_sea,cd_sea,cda_sea,isftcflx,iz0tlnd,&
-                 ! Changed T. Raupach 2020.
-                 rho, ideal_evap_flag, surface_wind            &
-                 ! End changed block.
                  shalwater_z0,water_depth,                     & 
+                 ! Changed T. Raupach 2020.
+                 rho, ideal_evap_flag, surface_wind,           &
+                 ! End changed block.
                  scm_force_flux,errmsg,errflg                  ) 
 !
      DO j = JTS , JTE

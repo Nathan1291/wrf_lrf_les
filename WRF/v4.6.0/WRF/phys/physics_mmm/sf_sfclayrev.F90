@@ -77,7 +77,7 @@
 !!
  subroutine sf_sfclayrev_run(ux,vx,t1d,qv1d,p1d,dz8w1d,                &
                              ! Changed T. Raupach 2020.
-                             rho1d, ideal_evap_flag, surface_wind   &
+                             rho1d, ideal_evap_flag, surface_wind,     &
                              ! End changed block.
                              cp,g,rovcp,r,xlv,psfcpa,chs,chs2,cqs2,    &
                              cpm,pblh,rmol,znt,ust,mavail,zol,mol,     &
