@@ -31,7 +31,7 @@ directory `<WRFDIR>` when this project is cloned to `<GITDIR>`, use:
 
 ```
 cd <WRFDIR>
-git clone -b V4.6.0 git@github.com:coecms/WRF.git
+git clone -b V4.6.0 --recursive git@github.com:coecms/WRF.git
 cd <GITDIR>/wrf_lrf_les/WRF/v4.6.0/
 ../../scripts/sh/install_wrf.sh <WRFDIR>/WRF/
 ```
