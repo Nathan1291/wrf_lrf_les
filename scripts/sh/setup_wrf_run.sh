@@ -32,30 +32,30 @@ mkdir $outdir
 cd $outdir
 
 echo 'Linking WRF files.'
-ln -s $wrfdir/WRFV3/run/bulkdens.asc_s_0_03_0_9 .
-ln -s $wrfdir/WRFV3/run/bulkradii.asc_s_0_03_0_9 .
-ln -s $wrfdir/WRFV3/run/capacity.asc .
-ln -s $wrfdir/WRFV3/run/coeff_p.asc .
-ln -s $wrfdir/WRFV3/run/coeff_q.asc .
-ln -s $wrfdir/WRFV3/run/constants.asc .
-ln -s $wrfdir/WRFV3/run/kernels.asc_s_0_03_0_9 .
-ln -s $wrfdir/WRFV3/run/kernels_z.asc .
-ln -s $wrfdir/WRFV3/run/masses.asc .
-ln -s $wrfdir/WRFV3/run/termvels.asc .
-ln -s $wrfdir/WRFV3/run/RRTMG_LW_DATA .
-ln -s $wrfdir/WRFV3/run/RRTMG_LW_DATA_DBL .
-ln -s $wrfdir/WRFV3/run/RRTMG_SW_DATA .
-ln -s $wrfdir/WRFV3/run/RRTMG_SW_DATA_DBL .
-ln -s $wrfdir/WRFV3/run/RRTM_DATA .
-ln -s $wrfdir/WRFV3/run/RRTM_DATA_DBL .
-ln -s $wrfdir/WRFV3/run/LANDUSE.TBL .
-ln -s $wrfdir/WRFV3/run/ozone.formatted .
-ln -s $wrfdir/WRFV3/run/ozone_lat.formatted .
-ln -s $wrfdir/WRFV3/run/ozone_plev.formatted .
+ln -s $wrfdir/WRF/run/bulkdens.asc_s_0_03_0_9 .
+ln -s $wrfdir/WRF/run/bulkradii.asc_s_0_03_0_9 .
+ln -s $wrfdir/WRF/run/capacity.asc .
+ln -s $wrfdir/WRF/run/coeff_p.asc .
+ln -s $wrfdir/WRF/run/coeff_q.asc .
+ln -s $wrfdir/WRF/run/constants.asc .
+ln -s $wrfdir/WRF/run/kernels.asc_s_0_03_0_9 .
+ln -s $wrfdir/WRF/run/kernels_z.asc .
+ln -s $wrfdir/WRF/run/masses.asc .
+ln -s $wrfdir/WRF/run/termvels.asc .
+ln -s $wrfdir/WRF/run/RRTMG_LW_DATA .
+ln -s $wrfdir/WRF/run/RRTMG_LW_DATA_DBL .
+ln -s $wrfdir/WRF/run/RRTMG_SW_DATA .
+ln -s $wrfdir/WRF/run/RRTMG_SW_DATA_DBL .
+ln -s $wrfdir/WRF/run/RRTM_DATA .
+ln -s $wrfdir/WRF/run/RRTM_DATA_DBL .
+ln -s $wrfdir/WRF/run/LANDUSE.TBL .
+ln -s $wrfdir/WRF/run/ozone.formatted .
+ln -s $wrfdir/WRF/run/ozone_lat.formatted .
+ln -s $wrfdir/WRF/run/ozone_plev.formatted .
 
 echo 'Linking executables.'
-ln -s $wrfdir/WRFV3/main/ideal.exe .
-ln -s $wrfdir/WRFV3/main/wrf.exe .
+ln -s $wrfdir/WRF/main/ideal.exe .
+ln -s $wrfdir/WRF/main/wrf.exe .
 
 echo 'Copying runtime scripts.'
 cp $gitdir/scripts/sh/run_ideal.sh .

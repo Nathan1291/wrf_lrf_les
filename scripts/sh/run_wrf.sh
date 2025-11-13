@@ -10,7 +10,7 @@
 #PBS -W umask=0022
 #PBS -N wrf_job
 
-module load openmpi
+module load openmpi/4.0.2
 ulimit -s unlimited
 limit stacksize unlimited
 

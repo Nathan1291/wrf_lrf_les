@@ -9,27 +9,29 @@ MODULES =                 		\
         module_advect_em.o   		\
 	module_nudging.o                \
         module_LRF.o                    \
-	module_diffusion_em.o  		\
-	module_small_step_em.o 		\
+        module_ieva_em.o            \
+	  module_diffusion_em.o  		\
+	  module_small_step_em.o 		\
         module_big_step_utilities_em.o  \
         module_em.o         		\
         module_solvedebug_em.o    	\
         module_bc_em.o                  \
         module_init_utilities.o         \
         module_wps_io_arw.o             \
-	module_damping_em.o		\
-	module_polarfft.o		\
+	  module_damping_em.o		\
+	  module_polarfft.o		\
         module_force_scm.o              \
         module_first_rk_step_part1.o    \
         module_first_rk_step_part2.o    \
         module_avgflx_em.o              \
-	module_sfs_nba.o		\
+	  module_sfs_nba.o		\
         module_convtrans_prep.o         \
-	module_sfs_driver.o		\
-	module_stoch.o			\
-	module_after_all_rk_steps.o	\
-	$(CASE_MODULE)
+	  module_sfs_driver.o		\
+	  module_stoch.o			\
+	  module_after_all_rk_steps.o	\
+	  $(CASE_MODULE)
 # End changed block.
+
 
 # possible CASE_MODULE settings
 #	module_initialize_b_wave.o      \

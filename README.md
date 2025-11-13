@@ -9,6 +9,8 @@ simulation (LES) resolutions.
 This work supports the journal article "Responses to Humidity and Temperature Perturbations in High-Resolution Simulations of Convection" by 
 Timothy H. Raupach, Chimene L. Daleu, Robert S. Plant, Steven C. Sherwood and Yi-Ling Huang. 
 
+** Updated by Nathan Lue to be compatible with WRF V4.6.0 **
+
 The contents of this repository is licensed under CC-BY-4.0-NC, except for files in the `WRF` directory which have their own license.
 
 Contact email: Tim Raupach <t.raupach@unsw.edu.au>.
@@ -29,8 +31,8 @@ directory `<WRFDIR>` when this project is cloned to `<GITDIR>`, use:
 
 ```
 cd <WRFDIR>
-git clone -b V4.1.4 git@github.com:coecms/WRF.git
-cd <GITDIR>/wrf_lrf_les/WRF/v4.1.4/
+git clone -b V4.6.0 --recursive git@github.com:coecms/WRF.git
+cd <GITDIR>/wrf_lrf_les/WRF/v4.6.0/
 ../../scripts/sh/install_wrf.sh <WRFDIR>/WRF/
 ```
 
@@ -39,7 +41,7 @@ cd <GITDIR>/wrf_lrf_les/WRF/v4.1.4/
 In this project the `em_quarter_ss` ideal case is used as the base case. Compile it using the following:
 
 ```
-cd <WRFDIR>/WRF/WRFV3/
+cd <WRFDIR>/WRF/WRF/
 ./run_compile --clean --compile_case em_quarter_ss
 ```
 
@@ -140,7 +142,7 @@ new tendency variables introduced specifically to be separate from any other sch
 
 Changes are made to the following files:
 
-- `WRFV3/Registry/Registry.EM_COMMON`:
+- `WRFV/Registry/Registry.EM_COMMON`:
 	- made `RTHRATEN` (potential temperature tendency due to radiation scheme) an output variable.
 	- added new grid variables:
 		- `RTHFORCETEN`, `RQVFORCETEN` - tendency due to perturbation forcing in U and V respectively.
@@ -148,8 +150,8 @@ Changes are made to the following files:
 		- `RELAX_U_TARGET_PROFILE`, `RELAX_V_TARGET_PROFILE` - the target U and V wind profiles for wind relaxation.
 		- `RELAX_T_TARGET_PROFILE`, `RELAX_Q_TARGET_PROFILE` - the target T and q profiles, used in the stratosphere.
 	- added new namelist options. 
-- `WRFV3/dyn_em/Makefile` - added compilation rules for `module_nudging` and `module_LRF`.
-- `WRFV3/dyn_em/module_LRF.F` - new module containing the following functions:
+- `WRF/dyn_em/Makefile` - added compilation rules for `module_nudging` and `module_LRF`.
+- `WRF/dyn_em/module_LRF.F` - new module containing the following functions:
 	- `force_LRF`: force vertical temperature and moisture tendencies.
 	- `relax_winds_to_profile`: do wind relaxation to target profiles.
 	- `relax_stratospheric_t_qv`: relax T and q in the stratosphere to target profiles.
@@ -157,44 +159,46 @@ Changes are made to the following files:
 	- `read_wind_target_profiles`: read U and V target profile files.
 	- `read_tq_target_profiles`: read T and q target profile files.
 	- `fix_radiation`: set the radiation profile to constant profile of [Herman and Kuang (2013)](https://doi.org/10.1002/jame.20037).
-- `WRFV3/dyn_em/module_big_step_utilities_em.F` - updated function  `phy_prep_part2` to take new tendencies and decouple them from mass points.
-- `WRFV3/dyn_em/module_diffusion_em.F` - updated function `phy_bc` to accept new wind tendencies and set them in boundary regions.
-- `WRFV3/dyn_em/module_em.F` - updated function `calculate_phy_tend` to accept new tendencies and couple them to mass points.
-- `WRFV3/dyn_em/module_first_rk_step_part1.F` - added new processing steps:
+- `WRF/dyn_em/module_big_step_utilities_em.F` - updated function  `phy_prep_part2` to take new tendencies and decouple them from mass points.
+- `WRF/dyn_em/module_diffusion_em.F` - updated function `phy_bc` to accept new wind tendencies and set them in boundary regions.
+- `WRF/dyn_em/module_em.F` - updated function `calculate_phy_tend` to accept new tendencies and couple them to mass points.
+- `WRF/dyn_em/module_first_rk_step_part1.F` - added new processing steps:
 	- if `const_rad_cooling` is set prescribe the radiative cooling profile.
 	- pass ideal evaporation and surface wind options to `surface_driver` function.
 	- assign perturbations tendencies to theta, QV if forcing required.
 	- load wind profiles and assign relaxation tendencies to U and V if required.
 	- load T and q profiles and relax in stratosphere if required.
-- `WRFV3/dyn_em/module_first_rk_step_part2.F` - updated function calls:
+- `WRF/dyn_em/module_first_rk_step_part2.F` - updated function calls:
 	- updated call to `calculate_phy_tend` to pass new tendencies.
 	- updated call to `phy_bc` to pass new (wind) tendencies.
 	- added include statements so that halo and periodic communications are calculated for `RURELAXTEN` and `RVRELAXTEN` fields before call to `update_phy_ten`
 	- updated call to `update_phy_ten` to pass new tendencies.
-- `WRFV3/dyn_em/module_initialize_ideal.F` - reduced file to only include code relevant to our ideal case.
+- `WRF/dyn_em/module_initialize_ideal.F` - reduced file to only include code relevant to our ideal case.
 	- set `mminlu2` to `USGS` and water land-use code to 16.
 	- set all surface area in the model to water at prescribed sea-surface temperature (SST).
 	- set coriolis force to zero everywhere.
 	- set eta-levels to be read from namelist.
 	- fixed bug in hydrostatic rebalancing of ph_1 where c1h(k) and c2h(k) were used instead of c1h(k-1) and c2h(k-1) as in the first calculation of ph_1.
 	- set `SST` and `TMN` to namelist `ssttsk` value.
-- `WRFV3/dyn_em/module_nudging.F` - new module containing the following function:
+- `WRF/dyn_em/module_nudging.F` - new module containing the following function:
 	- `apply_light_nudging`: nudge variables towards the grid average of the variable (without using a tendency variable).
-- `WRFV3/dyn_em/solve_em.F`:
+- `WRF/dyn_em/solve_em.F`:
 	- added printout of information.
 	- added light nudging code into third runge-kutta step. 
 	- updated call to `phy_prep_part2` to pass new tendencies.
 	- added stratospheric relaxation of T and q code after last runge-kutta step.
-- `WRFV3/dyn_em/start_em.F` - updated call to `phy_init` to pass new tendencies.
-- `WRFV3/phys/module_physics_addtendc.F` - updated function `update_phy_tend` to accept new tendencies and add them to tendency sums.
-- `WRFV3/phys/module_physics_init.F` - updated function `phy_init` to accept new tendencies and initialise them to zero.
-- `WRFV3/phys/module_sf_sfclayrev.F` - implemented ideal evaporation in `sfclayrev` scheme.
+- `WRF/dyn_em/start_em.F` - updated call to `phy_init` to pass new tendencies.
+- `WRF/phys/module_physics_addtendc.F` - updated function `update_phy_tend` to accept new tendencies and add them to tendency sums.
+- `WRF/phys/module_physics_init.F` - updated function `phy_init` to accept new tendencies and initialise them to zero.
+- `WRF/phys/module_sf_sfclayrev.F` - implemented ideal evaporation in `sfclayrev` scheme.
 	- updated function `sfclayrev` to accept ideal evaporation options.
-	- updated function `sfclayrev1d` and call to it, to accept/pass ideal evaporation options.
+	- updated function `sfclayrev_pre_run` and call to it, to accept/pass ideal evaporation options.
 	- if ideal evaporation is used, surface moist and surface heat fluxes are set using approach of [Chua et al., 2019](http://dx.doi.org/10.1029/2019GL082408).
-- `WRFV3/phys/module_surface_driver.F`:
+- `WRF/phys/physics_mmm/sf_sfclayrev.F90` - implemented ideal evaporation in `sfclayrev` scheme.
+	- updated function `sf_sfclayrev_run` to accept ideal evaporation options. 
+- `WRF/phys/module_surface_driver.F`:
 	- updated function `surface_driver` to accept ideal evaporation and surface wind options.
 	- updated calls to and functions of `sfclayrev_seaice_wrapper` to pass/accept ideal evaporation and surface wind options.
 	- updated call to `sfclayrev` to pass ideal evaporation and surface wind options.
-- `WRFV3/share/output_wrf.F`
+- `WRF/share/output_wrf.F`
 	- updated output to include the values of important options in netcdf files.
